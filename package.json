@@ -7,6 +7,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.5",
+    "@testing-library/jest-dom": "^5.14.1",
     "@webpack-cli/generators": "^2.2.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "10.x",
@@ -17,8 +18,10 @@
     "eslint": "7.x",
     "eslint-config-airbnb-base": "14.x",
     "eslint-plugin-import": "2.x",
+    "eslint-plugin-jest-dom": "^3.9.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "jest": "^27.0.4",
     "raw-loader": "^4.0.2",
     "style-loader": "^2.0.0",
     "stylelint": "13.x",
@@ -41,6 +44,7 @@
     "watch": "webpack --watch -c ./webpack/base.js",
     "serve": "webpack serve -c ./webpack/base.js",
     "eslint": "eslint .",
-    "stylelint": "stylelint '**/*.{css,scss}'"
+    "stylelint": "stylelint '**/*.{css,scss}'",
+    "test": "jest"
   }
 }
