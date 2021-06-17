@@ -1,28 +1,21 @@
+import './assets/stylesheet/style.css';
 import Phaser from 'phaser';
-import sky from './assets/sky.png';
-import ground from './assets/platform.png';
-import dude from './assets/dude.png';
-import star from './assets/star.png';
-
-let platforms;
-let player;
-let cursors;
+import bgIMG from './assets/Seasonal Tilesets/1 - Grassland/Background parts/_Complete_static_BG_(288 x 208).png';
+import botIMG from './assets/Sprite Pack 5/1 - Robo Retro/Flying_(32 x 32).png';
 
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scale: {
-    // Fit to window
-    mode: Phaser.Scale.FIT,
-    // Center vertically and horizontally
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
+  // scale: {
+  //   mode: Phaser.Scale.FIT,
+  //   autoCenter: Phaser.Scale.CENTER_BOTH,
+  // },
   physics: {
     default: 'arcade',
     arcade: {
       gravity: { y: 300 },
-      debug: false,
+      debug: true,
     },
   },
   scene: {
@@ -32,73 +25,36 @@ const config = {
   },
 };
 
-const game = new Phaser.Game(config);
+let bot;
+let initialBotPosition = { x: config.width / 10, y: config.height / 2 };
 
 function preload() {
-  this.load.image('sky', sky);
-  this.load.image('ground', ground);
-  this.load.image('star', star);
-  this.load.image('bomb', 'assets/bomb.png');
-  this.load.spritesheet('dude', dude,
-    { frameWidth: 32, frameHeight: 48 });
+  this.load.image('bg', bgIMG);
+  this.load.image('bot', botIMG);
 }
 
 function create() {
-  this.add.image(400, 300, 'sky');
+  this.add.image(0, 0, 'bg').setOrigin(0).setScale(3);
+  bot = this.physics.add.sprite(initialBotPosition.x, initialBotPosition.y, 'bot').setScale(2).setOrigin(0); 
 
-  platforms = this.physics.add.staticGroup();
+  this.input.on('pointerdown', flap);
+  this.input.keyboard.on('keydown_SPACE', flap);
+}
 
-  platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-  platforms.create(600, 400, 'ground');
-  platforms.create(50, 250, 'ground');
-  platforms.create(750, 220, 'ground');
-
-  player = this.physics.add.sprite(100, 450, 'dude');
-
-  player.setBounce(0.1);
-  player.setCollideWorldBounds(true);
-
-  this.anims.create({
-    key: 'left',
-    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-    frameRate: 10,
-    repeat: -1,
-  });
-
-  this.anims.create({
-    key: 'turn',
-    frames: [{ key: 'dude', frame: 4 }],
-    frameRate: 20,
-  });
-
-  this.anims.create({
-    key: 'right',
-    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-    frameRate: 10,
-    repeat: -1,
-  });
-
-  this.physics.add.collider(player, platforms);
-  cursors = this.input.keyboard.createCursorKeys();
+function resetBotPosition() {
+  bot.x = initialBotPosition.x;
+  bot.y = initialBotPosition.y;
 }
 
 function update() {
-  if (cursors.left.isDown) {
-    player.setVelocityX(-160);
-
-    player.anims.play('left', true);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-
-    player.anims.play('right', true);
-  } else {
-    player.setVelocityX(0);
-
-    player.anims.play('turn');
-  }
-
-  if (cursors.up.isDown && player.body.touching.down) {
-    player.setVelocityY(-100);
+  if (bot.y > config.height || bot.y < bot.height) {
+    resetBotPosition();
+    bot.body.velocity.y = 0;
   }
 }
+
+function flap() {
+  bot.body.velocity.y = -200;
+}
+
+(() => new Phaser.Game(config))();
