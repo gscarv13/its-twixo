@@ -26,18 +26,18 @@ const config = {
   },
 };
 
-let bot;
-let obstacleTop;
-let obstacleBottom;
+let OBSTACLES_TO_RENDER = 4;
+let bot = null;
+let obstacles = null;
 
 const obstacleYDistanceRange = [100, 250];
-const obstacleYDistance = Phaser.Math.Between(...obstacleYDistanceRange);
-const obstacleYPosition = Phaser.Math.Between(60, config.height - 60 - obstacleYDistance);
+const obstacleXDistanceRange = [400, 600];
+
+let obstacleXDistance = 0;
 
 const initialBotPosition = { x: config.width / 10, y: config.height / 2 };
 
 function preload() {
-  console.log(this);
   this.load.image('bg', bgIMG);
   this.load.image('bot', botIMG);
 
@@ -47,11 +47,20 @@ function preload() {
 
 function create() {
   this.add.image(0, 0, 'bg').setOrigin(0).setScale(3);
-  obstacleTop = this.physics.add.sprite(400, obstacleYPosition, 'obstacle2').setOrigin(0, 1);
-  obstacleBottom = this.physics.add.sprite(400, obstacleYDistance + obstacleTop.y, 'obstacle1').setOrigin(0);
 
   bot = this.physics.add.sprite(initialBotPosition.x, initialBotPosition.y, 'bot').setScale(2).setOrigin(0);
   bot.body.gravity.y = 400;
+
+  obstacles = this.physics.add.group();
+
+  for (let i = 0; i < OBSTACLES_TO_RENDER; i += 1) {
+    const obstacleTop = obstacles.create(0, 0, 'obstacle2').setOrigin(0, 1);
+    const obstacleBottom = obstacles.create(0, 0, 'obstacle1').setOrigin(0);
+
+    placeObstacle(obstacleTop, obstacleBottom);
+  }
+
+  obstacles.setVelocityX(-200);
 
   this.input.on('pointerdown', flap);
   this.input.keyboard.on('keydown_SPACE', flap);
@@ -67,10 +76,47 @@ function update() {
     resetBotPosition();
     bot.body.velocity.y = 0;
   }
+
+  recycleObstacles();
 }
 
 function flap() {
   bot.body.velocity.y = -200;
+}
+
+function placeObstacle(top, bottom) {
+  const rightMostX = getRightMostObstacle();
+  const obstacleYDistance = Phaser.Math.Between(...obstacleYDistanceRange);
+  const obstacleYPosition = Phaser.Math.Between(60, config.height - 60 - obstacleYDistance);
+  const obstacleXDistance = Phaser.Math.Between(...obstacleXDistanceRange);
+
+  top.x = rightMostX + obstacleXDistance;
+  top.y = obstacleYPosition;
+
+  bottom.x = top.x;
+  bottom.y = top.y + obstacleYDistance;
+}
+
+function getRightMostObstacle() {
+  let rightMost = 0;
+
+  obstacles.getChildren().forEach((obstacle) => {
+    rightMost = Math.max(obstacle.x, rightMost);
+  });
+
+  return rightMost;
+}
+
+function recycleObstacles() {
+  const obstaclesOutOfScene = [];
+  obstacles.getChildren().forEach((obstacle) => {
+    if (obstacle.getBounds().right <= 0) {
+      obstaclesOutOfScene.push(obstacle);
+      if (obstaclesOutOfScene.length === 2) {
+        placeObstacle(...obstaclesOutOfScene);
+      }
+    }
+  });
 }
 
 (() => new Phaser.Game(config))();
