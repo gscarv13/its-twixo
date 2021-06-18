@@ -13,7 +13,7 @@ class PlayScene extends Phaser.Scene {
     this.bot = null;
     this.obstacles = null;
     this.obstacleYDistanceRange = [100, 250];
-    this.obstacleXDistanceRange = [400, 600];
+    this.obstacleXDistanceRange = [400, 550];
     this.obstacleXDistance = 0;
   }
 
@@ -25,28 +25,57 @@ class PlayScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0, 0, 'bg').setOrigin(0).setScale(3);
+    this.createBG();
+    this.createBot();
+    this.createObstacles();
+    this.createColliders();
+    this.eventsHandler();
+  }
 
+  update() {
+    this.checkGameStatus();
+    this.recycleObstacles();
+  }
+
+  createBG() {
+    this.add.image(0, 0, 'bg').setOrigin(0).setScale(3);
+  }
+
+  createBot() {
     this.bot = this.physics.add.sprite(this.config.initialPosition.x, this.config.initialPosition.y, 'bot').setScale(2).setOrigin(0);
     this.bot.body.gravity.y = 400;
+    this.bot.setCollideWorldBounds(true);
+  }
 
+  createObstacles() {
     this.obstacles = this.physics.add.group();
 
     for (let i = 0; i < OBSTACLES_TO_RENDER; i += 1) {
-      const obstacleTop = this.obstacles.create(0, 0, 'obstacle2').setOrigin(0, 1);
-      const obstacleBottom = this.obstacles.create(0, 0, 'obstacle1').setOrigin(0);
+      const obstacleTop = this.obstacles.create(0, 0, 'obstacle2')
+        .setImmovable(true)
+        .setOrigin(0, 1);
+
+      const obstacleBottom = this.obstacles.create(0, 0, 'obstacle1')
+        .setImmovable(true)
+        .setOrigin(0);
 
       this.placeObstacle(obstacleTop, obstacleBottom);
     }
 
     this.obstacles.setVelocityX(-200);
+  }
 
+  createColliders() {
+    this.physics.add.collider(this.bot, this.obstacles, this.gameOver, null, this);
+  }
+
+  eventsHandler() {
     this.input.on('pointerdown', this.upBoost, this);
     this.input.keyboard.on('keydown_SPACE', this.upBoost, this);
   }
 
   upBoost() {
-    this.bot.body.velocity.y = -200;
+    this.bot.body.velocity.y = -250;
   }
 
   getRightMostObstacle() {
@@ -71,9 +100,27 @@ class PlayScene extends Phaser.Scene {
     bottom.y = top.y + obstacleYDistance;
   }
 
-  resetBotPosition() {
-    this.bot.x = this.config.initialPosition.x;
-    this.bot.y = this.config.initialPosition.y;
+  checkGameStatus() {
+    if (this.bot.getBounds().bottom > 590 || this.bot.y < this.bot.height - 30) {
+      this.gameOver();
+    }
+  }
+
+  gameOver() {
+    // this.bot.x = this.config.initialPosition.x;
+    // this.bot.y = this.config.initialPosition.y;
+    // this.bot.body.velocity.y = 0;
+
+    this.physics.pause();
+    this.bot.setTint(0x000000);
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        this.scene.restart();
+      },
+      loop: false,
+    });
   }
 
   recycleObstacles() {
@@ -86,14 +133,6 @@ class PlayScene extends Phaser.Scene {
         }
       }
     });
-  }
-
-  update() {
-    if (this.bot.y > 545 || this.bot.y < this.bot.height - 30) {
-      this.resetBotPosition();
-      this.bot.body.velocity.y = 0;
-    }
-    this.recycleObstacles();
   }
 }
 
