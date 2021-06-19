@@ -1,6 +1,8 @@
 import './assets/stylesheet/style.css';
 import Phaser from 'phaser';
+import PreloadScene from './scenes/PreloadScene';
 import PlayScene from './scenes/PlayScene';
+import MenuScene from './scenes/MenuScene';
 
 const WIDTH = 800;
 const HEIGHT = 600;
@@ -15,6 +17,10 @@ const SHARED_CONFIG = {
   initialPosition: BOT_POSITION,
 };
 
+const SCENES = [PreloadScene, MenuScene, PlayScene];
+const newScene = (Scene) => new Scene(SHARED_CONFIG);
+const initScenes = () => SCENES.map(newScene);
+
 const config = {
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
@@ -28,7 +34,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [new PlayScene(SHARED_CONFIG)],
+  scene: initScenes(),
 };
 
 (() => new Phaser.Game(config))();
