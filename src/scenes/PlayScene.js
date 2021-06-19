@@ -15,6 +15,8 @@ class PlayScene extends Phaser.Scene {
     this.obstacleYDistanceRange = [100, 250];
     this.obstacleXDistanceRange = [400, 550];
     this.obstacleXDistance = 0;
+    this.score = 0;
+    this.scoreText = '0';
   }
 
   preload() {
@@ -30,6 +32,7 @@ class PlayScene extends Phaser.Scene {
     this.createObstacles();
     this.createColliders();
     this.eventsHandler();
+    this.createScore();
   }
 
   update() {
@@ -42,7 +45,11 @@ class PlayScene extends Phaser.Scene {
   }
 
   createBot() {
-    this.bot = this.physics.add.sprite(this.config.initialPosition.x, this.config.initialPosition.y, 'bot').setScale(2).setOrigin(0);
+    this.bot = this.physics.add
+      .sprite(this.config.initialPosition.x, this.config.initialPosition.y, 'bot')
+      .setScale(1.5)
+      .setOrigin(0);
+
     this.bot.body.gravity.y = 400;
     this.bot.setCollideWorldBounds(true);
   }
@@ -107,12 +114,9 @@ class PlayScene extends Phaser.Scene {
   }
 
   gameOver() {
-    // this.bot.x = this.config.initialPosition.x;
-    // this.bot.y = this.config.initialPosition.y;
-    // this.bot.body.velocity.y = 0;
-
     this.physics.pause();
     this.bot.setTint(0x000000);
+    this.saveBestScore();
 
     this.time.addEvent({
       delay: 1000,
@@ -123,6 +127,35 @@ class PlayScene extends Phaser.Scene {
     });
   }
 
+  saveBestScore() {
+    const bestScoreText = localStorage.getItem('bestScore');
+    const bestScore = bestScoreText && parseInt(bestScoreText, 10);
+
+    if (!bestScore || this.score > bestScore) {
+      localStorage.setItem('bestScore', this.score);
+    }
+  }
+
+  createScore() {
+    // parei no 31
+    const bestScore = localStorage.getItem('bestScore');
+    this.score = 0;
+    this.scoreText = this.add.text(16, 16, `Score: ${0}`, {
+      fontSize: '32px',
+      fill: '#000',
+    });
+
+    this.add.text(16, 52, `Best score: ${bestScore || 0}`, {
+      fontSize: '18px',
+      fill: '#000',
+    });
+  }
+
+  increaseScore() {
+    this.score += 1;
+    this.scoreText.setText(`Score: ${this.score}`);
+  }
+
   recycleObstacles() {
     const obstaclesOutOfScene = [];
     this.obstacles.getChildren().forEach((obstacle) => {
@@ -130,6 +163,8 @@ class PlayScene extends Phaser.Scene {
         obstaclesOutOfScene.push(obstacle);
         if (obstaclesOutOfScene.length === 2) {
           this.placeObstacle(...obstaclesOutOfScene);
+          this.increaseScore();
+          this.saveBestScore();
         }
       }
     });
