@@ -1,8 +1,4 @@
 import Phaser from 'phaser';
-import bgIMG from '../assets/Environment/bg-static.png';
-import botIMG from '../assets/Character/flying.png';
-import obstacle1IMG from '../assets/Environment/obstacle1.png';
-import obstacle2IMG from '../assets/Environment/obstacle2.png';
 
 const OBSTACLES_TO_RENDER = 4;
 
@@ -19,13 +15,6 @@ class PlayScene extends Phaser.Scene {
     this.scoreText = '0';
   }
 
-  preload() {
-    this.load.image('bg', bgIMG);
-    this.load.image('bot', botIMG);
-    this.load.image('obstacle1', obstacle1IMG);
-    this.load.image('obstacle2', obstacle2IMG);
-  }
-
   create() {
     this.createBG();
     this.createBot();
@@ -33,6 +22,7 @@ class PlayScene extends Phaser.Scene {
     this.createColliders();
     this.eventsHandler();
     this.createScore();
+    this.createPause();
   }
 
   update() {
@@ -74,6 +64,18 @@ class PlayScene extends Phaser.Scene {
 
   createColliders() {
     this.physics.add.collider(this.bot, this.obstacles, this.gameOver, null, this);
+  }
+
+  createPause() {
+    const btnPause = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
+      .setOrigin(1, 1)
+      .setInteractive()
+      .setScale(2);
+
+    btnPause.on('pointerdown', () => {
+      this.physics.pause();
+      this.scene.pause();
+    });
   }
 
   eventsHandler() {
