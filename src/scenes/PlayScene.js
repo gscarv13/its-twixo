@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
+import BaseScene from './BaseScene';
 
 const OBSTACLES_TO_RENDER = 4;
 
-class PlayScene extends Phaser.Scene {
+class PlayScene extends BaseScene {
   constructor(config) {
-    super('PlayScene');
-    this.config = config;
+    super('PlayScene', config);
     this.bot = null;
     this.obstacles = null;
     this.obstacleYDistanceRange = [100, 250];
@@ -16,7 +16,7 @@ class PlayScene extends Phaser.Scene {
   }
 
   create() {
-    this.createBG();
+    super.createBG();
     this.createBot();
     this.createObstacles();
     this.createColliders();
@@ -28,10 +28,6 @@ class PlayScene extends Phaser.Scene {
   update() {
     this.checkGameStatus();
     this.recycleObstacles();
-  }
-
-  createBG() {
-    this.add.image(0, 0, 'bg').setOrigin(0).setScale(3);
   }
 
   createBot() {

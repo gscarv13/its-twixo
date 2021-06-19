@@ -4,6 +4,8 @@ import botIMG from '../assets/Character/flying.png';
 import obstacle1IMG from '../assets/Environment/obstacle1.png';
 import obstacle2IMG from '../assets/Environment/obstacle2.png';
 import pauseIMG from '../assets/GUI/pause.png';
+import playIMG from '../assets/GUI/play.png';
+import playPressedIMG from '../assets/GUI/play-pressed.png';
 
 class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -16,6 +18,8 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('obstacle1', obstacle1IMG);
     this.load.image('obstacle2', obstacle2IMG);
     this.load.image('pause', pauseIMG);
+    this.load.image('play', playIMG);
+    this.load.image('playPressed', playPressedIMG);
   }
 
   create() {
