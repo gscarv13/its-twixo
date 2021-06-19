@@ -1,16 +1,46 @@
-import Phaser from 'phaser';
+import BaseScene from './BaseScene';
 
-class MenuScene extends Phaser.Scene {
+class MenuScene extends BaseScene {
   constructor(config) {
-    super('MenuScene');
-    this.config = config;
+    super('MenuScene', config);
+    this.menu = [
+      { scene: 'PlayScene', text: 'Play' },
+      { scene: 'ScoreScene', text: 'Score' },
+      { scene: null, text: 'Exit' },
+    ];
   }
 
   create() {
-    this.add.image(0, 0, 'bg')
-      .setScale(3)
-      .setOrigin(0);
-    this.scene.start('PlayScene');
+    super.createBG();
+    this.playButton();
+  }
+
+  createButton(keyIMG) {
+    return this.add.image(this.config.width / 2, this.config.height * (3 / 4), keyIMG)
+      .setOrigin(0.5, 0.5)
+      .setScale(2);
+  }
+
+  playButton() {
+    let btnPlay = this.createButton('play');
+
+    btnPlay.setInteractive();
+
+    btnPlay.on('pointerover', () => {
+      btnPlay.setTint(0xf1aeae);
+    });
+
+    btnPlay.on('pointerout', () => {
+      btnPlay.clearTint();
+    });
+
+    btnPlay.on('pointerdown', () => {
+      btnPlay = this.createButton('playPressed');
+    });
+
+    btnPlay.on('pointerup', () => {
+      this.scene.start('PlayScene');
+    });
   }
 }
 
