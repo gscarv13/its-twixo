@@ -8,21 +8,34 @@ class MenuScene extends BaseScene {
       { scene: 'ScoreScene', text: 'Score' },
       { scene: null, text: 'Exit' },
     ];
+    this.posPlay = [this.config.width / 2, this.config.height * (3 / 4)];
   }
 
   create() {
     super.createBG();
     this.playButton();
+    this.leaderBoardButton();
   }
 
-  createButton(keyIMG) {
-    return this.add.image(this.config.width / 2, this.config.height * (3 / 4), keyIMG)
+  createButton(xpos, ypos, keyIMG) {
+    return this.add.image(xpos, ypos, keyIMG)
       .setOrigin(0.5, 0.5)
       .setScale(2);
   }
 
+  leaderBoardButton() {
+    const btnLeaderboard = this.add.image(this.config.width - 30, this.config.height - 10, 'leaderboard')
+      .setOrigin(1, 1)
+      .setInteractive()
+      .setScale(1);
+
+    btnLeaderboard.on('pointerdown', () => {
+      this.scene.start('ScoreScene');
+    });
+  }
+
   playButton() {
-    let btnPlay = this.createButton('play');
+    let btnPlay = this.createButton(...this.posPlay, 'play');
 
     btnPlay.setInteractive();
 
@@ -35,7 +48,7 @@ class MenuScene extends BaseScene {
     });
 
     btnPlay.on('pointerdown', () => {
-      btnPlay = this.createButton('playPressed');
+      btnPlay = this.createButton(...this.posPlay, 'playPressed');
     });
 
     btnPlay.on('pointerup', () => {

@@ -135,7 +135,6 @@ class PlayScene extends BaseScene {
   }
 
   createScore() {
-    // parei no 31
     const bestScore = localStorage.getItem('bestScore');
     this.score = 0;
     this.scoreText = this.add.text(16, 16, `Score: ${0}`, {
