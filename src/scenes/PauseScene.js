@@ -9,7 +9,6 @@ class PauseScene extends BaseScene {
       { scene: 'MenuScene', text: 'Back to menu' },
     ];
     this.posCenter = [this.config.width / 2, this.config.height / 2];
-    this.fontOptions = { fontSize: '32px', fill: '#FFFFFF' };
   }
 
   create() {

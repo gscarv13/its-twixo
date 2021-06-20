@@ -13,6 +13,7 @@ class PlayScene extends BaseScene {
     this.obstacleXDistance = 0;
     this.score = 0;
     this.scoreText = '0';
+    this.isPaused = false;
   }
 
   create() {
@@ -23,11 +24,41 @@ class PlayScene extends BaseScene {
     this.eventsHandler();
     this.createScore();
     this.createPause();
+    this.listenToEvents();
   }
 
   update() {
     this.checkGameStatus();
     this.recycleObstacles();
+  }
+
+  listenToEvents() {
+    if (this.pauseEvent) return;
+
+    this.pauseEvent = this.events.on('resume', () => {
+      this.countDownTime = 3;
+      this.countDownText = this.add.text(
+        ...this.screenCenter, `Get ready: ${this.countDownTime}`, this.fontOptions,
+      ).setOrigin(0.5);
+      this.timedEvent = this.time.addEvent({
+        delay: 1000,
+        callback: this.countDown,
+        callbackScope: this,
+        loop: true,
+      });
+    });
+  }
+
+  countDown() {
+    this.countDownTime -= 1;
+    this.countDownText.setText(`Get ready: ${this.countDownTime}`);
+
+    if (this.countDownTime <= 0) {
+      this.isPaused = false;
+      this.countDownText.setText(' ');
+      this.physics.resume();
+      this.timedEvent.remove();
+    }
   }
 
   createBot() {
@@ -63,12 +94,15 @@ class PlayScene extends BaseScene {
   }
 
   createPause() {
+    this.isPaused = false;
+
     const btnPause = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
       .setOrigin(1, 1)
       .setInteractive()
       .setScale(2);
 
     btnPause.on('pointerdown', () => {
+      this.isPaused = true;
       this.physics.pause();
       this.scene.pause();
       this.scene.launch('PauseScene');
@@ -81,6 +115,8 @@ class PlayScene extends BaseScene {
   }
 
   upBoost() {
+    if (this.isPaused) return;
+
     this.bot.body.velocity.y = -250;
   }
 
