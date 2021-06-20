@@ -2,12 +2,11 @@ import BaseScene from './BaseScene';
 
 class ScoreScene extends BaseScene {
   constructor(config) {
-    super('ScoreScene', config);
-    this.config = config;
+    super('ScoreScene', { ...config, canGoBack: true });
   }
 
   create() {
-    super.createBG();
+    super.create();
 
     const bestScore = localStorage.getItem('bestScore');
     this.add.text(

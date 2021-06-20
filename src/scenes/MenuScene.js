@@ -12,7 +12,7 @@ class MenuScene extends BaseScene {
   }
 
   create() {
-    super.createBG();
+    super.create();
     this.playButton();
     this.leaderBoardButton();
   }

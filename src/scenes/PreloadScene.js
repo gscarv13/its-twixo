@@ -7,6 +7,7 @@ import pauseIMG from '../assets/GUI/pause.png';
 import playIMG from '../assets/GUI/play.png';
 import playPressedIMG from '../assets/GUI/play-pressed.png';
 import leaderBoardIMG from '../assets/GUI/leaderboard.png';
+import backIMG from '../assets/GUI/back.png';
 
 class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -22,6 +23,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('play', playIMG);
     this.load.image('playPressed', playPressedIMG);
     this.load.image('leaderboard', leaderBoardIMG);
+    this.load.image('back', backIMG);
   }
 
   create() {
