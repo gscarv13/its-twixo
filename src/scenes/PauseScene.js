@@ -1,4 +1,3 @@
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["setupMenuEvents"] }] */
 import BaseScene from './BaseScene';
 
 class PauseScene extends BaseScene {

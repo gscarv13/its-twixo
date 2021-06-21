@@ -6,6 +6,13 @@ class BaseScene extends Phaser.Scene {
     this.config = config;
     this.screenCenter = [config.width / 2, config.height / 2];
     this.fontOptions = { fontSize: '32px', fill: '#FFFFFF' };
+    this.endpoint = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dywOdGpLHHdIALqxyvig/scores/';
+    this.scoreOptions = {
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
   }
 
   create() {
