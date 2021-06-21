@@ -30,11 +30,13 @@ const config = {
   //   mode: Phaser.Scale.FIT,
   //   autoCenter: Phaser.Scale.CENTER_BOTH,
   // },
+  parent: 'container',
+  dom: {
+    createContainer: true,
+    expandParent: true,
+  },
   physics: {
     default: 'arcade',
-    arcade: {
-      debug: true,
-    },
   },
   scene: initScenes(),
 };
