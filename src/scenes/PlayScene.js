@@ -25,6 +25,15 @@ class PlayScene extends BaseScene {
     this.createScore();
     this.createPause();
     this.listenToEvents();
+
+    this.anims.create({
+      key: 'upBoost',
+      frames: this.anims.generateFrameNumbers('bot', { start: 0, end: 1 }),
+      frameRate: 8,
+      repeat: -1,
+    });
+
+    this.bot.play('upBoost');
   }
 
   update() {
