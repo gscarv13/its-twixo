@@ -14,7 +14,7 @@ async function setScore(url, opt, userData, callback) {
   opt.body = JSON.stringify(userData);
   const res = await fetch(url, opt);
   const data = await res.json();
-  return callback.apply(this, data);
+  return (callback.bind(this))(data);
 }
 
 export { getScore, setScore };

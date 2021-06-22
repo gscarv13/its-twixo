@@ -5,6 +5,7 @@ import PlayScene from './scenes/PlayScene';
 import MenuScene from './scenes/MenuScene';
 import ScoreScene from './scenes/ScoreScene';
 import PauseScene from './scenes/PauseScene';
+import SubmitScoreScene from './scenes/SubmitScoreScene';
 
 const WIDTH = 800;
 const HEIGHT = 600;
@@ -19,7 +20,7 @@ const SHARED_CONFIG = {
   initialPosition: BOT_POSITION,
 };
 
-const SCENES = [PreloadScene, MenuScene, ScoreScene, PlayScene, PauseScene];
+const SCENES = [PreloadScene, MenuScene, ScoreScene, PlayScene, PauseScene, SubmitScoreScene];
 const newScene = (Scene) => new Scene(SHARED_CONFIG);
 const initScenes = () => SCENES.map(newScene);
 
