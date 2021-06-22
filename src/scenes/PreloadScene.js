@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import WebFontFile from './WebFontFile';
 import bgIMG from '../assets/Environment/bg-static.png';
 import botIMG from '../assets/Character/flyingc.png';
 import obstacle1IMG from '../assets/Environment/obstacle1.png';
@@ -23,6 +24,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('playPressed', playPressedIMG);
     this.load.image('leaderboard', leaderBoardIMG);
     this.load.image('back', backIMG);
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
     this.load.spritesheet('bot', botIMG, {
       frameWidth: 32, frameHeight: 22,
     });

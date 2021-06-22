@@ -13,10 +13,7 @@ class ScoreScene extends BaseScene {
       this.config.width / 2,
       this.config.height / 2,
       'loading...',
-      {
-        fontSize: '32px',
-        fill: '#000000',
-      },
+      { ...this.fontOptions, fontSize: '22px' },
     ).setOrigin(0.5);
 
     API.getScore.bind(this)(this.endpoint, this.scoreOptions, this.returnFirst);

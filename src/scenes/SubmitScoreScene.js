@@ -16,14 +16,14 @@ class MenuScene extends BaseScene {
 
   displayScore() {
     this.add.text(this.screenCenter[0], this.screenCenter[1], 'Save highest score?', {
-      color: '#000',
+      ...this.fontOptions,
       fontSize: '32px',
     }).setOrigin(0.5);
   }
 
   btnConfirm() {
     const btn = this.add.text(this.screenCenter[0] - 50, this.screenCenter[1] + 50, 'Yes', {
-      color: '#000',
+      ...this.fontOptions,
       fontSize: '25px',
     }).setOrigin(0.5);
 

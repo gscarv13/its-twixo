@@ -183,13 +183,13 @@ class PlayScene extends BaseScene {
     const bestScore = localStorage.getItem('bestScore');
     this.score = 0;
     this.scoreText = this.add.text(16, 16, `Score: ${0}`, {
+      ...this.fontOptions,
       fontSize: '32px',
-      fill: '#000',
     });
 
     this.add.text(16, 52, `Best score: ${bestScore || 0}`, {
+      ...this.fontOptions,
       fontSize: '18px',
-      fill: '#000',
     });
   }
 

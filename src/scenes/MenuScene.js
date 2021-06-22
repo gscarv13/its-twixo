@@ -23,8 +23,8 @@ class MenuScene extends BaseScene {
       .setOrigin(0.5);
 
     this.message = this.add.text(this.config.width / 2, 310, 'Enter your nick, and hit ENTER', {
-      color: '#000',
-      fontSize: '22px',
+      ...this.fontOptions,
+      fontSize: '15px',
     }).setOrigin(0.5);
 
     this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -41,9 +41,7 @@ class MenuScene extends BaseScene {
       localStorage.setItem('username', name.value);
       name.value = '';
       name.remove();
-      this.add.text(this.config.width / 2, 350, 'Saved', {
-        color: '#000',
-      }).setOrigin(0.5);
+      this.add.text(this.config.width / 2, 350, 'Saved', this.fontOptions).setOrigin(0.5);
     }
   }
 
