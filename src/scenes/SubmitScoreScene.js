@@ -30,12 +30,9 @@ class MenuScene extends BaseScene {
     btn.setInteractive();
 
     btn.on('pointerup', () => {
-      const score = JSON.parse(localStorage.getItem('bestScore'));
-      const user = localStorage.getItem('username');
-
       const userData = {
-        user,
-        score,
+        user: localStorage.getItem('username'),
+        score: JSON.parse(localStorage.getItem('bestScore')),
       };
 
       API.setScore.bind(this)(this.endpoint, this.scoreOptions, userData, this.checkResolve);

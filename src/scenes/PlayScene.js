@@ -11,7 +11,6 @@ class PlayScene extends BaseScene {
     this.obstacleYDistanceRange = [100, 250];
     this.obstacleXDistanceRange = [400, 550];
     this.obstacleXDistance = 0;
-    this.score = 0;
     this.scoreText = '0';
     this.isPaused = false;
   }
@@ -165,7 +164,7 @@ class PlayScene extends BaseScene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-        this.scene.restart();
+        this.scene.start('SubmitScoreScene');
       },
       loop: false,
     });
