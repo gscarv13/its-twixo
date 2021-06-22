@@ -17,9 +17,13 @@ class MenuScene extends BaseScene {
     this.playButton();
     this.leaderBoardButton();
 
-    // this.nameInput = this.add.dom(200, 200).createFromCache("form").setOrigin(0);
+    this.add.text(this.config.width / 2, 120, 'It\'s Twixo', {
+      ...this.fontOptions,
+      fontSize: '32px',
+    }).setOrigin(0.5);
+
     this.nameInput = this.add.dom(this.config.width / 2, 350)
-      .createFromHTML('<input type="text" id="name" name="nameField" placeholder="Enter your name" value="" style="font-size: 20px">')
+      .createFromHTML('<input type="text" id="name" name="nameField" name" value="" >')
       .setOrigin(0.5);
 
     this.message = this.add.text(this.config.width / 2, 310, 'Enter your nick, and hit ENTER', {

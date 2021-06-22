@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
   margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  color: #000;
 }
 
 canvas {
@@ -9,5 +13,6 @@ canvas {
 
 input {
   width: 200px;
-  background-color: yellow;
+  border: black solid 3px;
+  border-radius: 5px;
 }
