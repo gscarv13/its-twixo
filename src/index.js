@@ -27,10 +27,6 @@ const initScenes = () => SCENES.map(newScene);
 const config = {
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
-  // scale: {
-  //   mode: Phaser.Scale.FIT,
-  //   autoCenter: Phaser.Scale.CENTER_BOTH,
-  // },
   parent: 'container',
   dom: {
     createContainer: true,
