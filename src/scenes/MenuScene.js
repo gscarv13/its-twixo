@@ -4,11 +4,7 @@ import BaseScene from './BaseScene';
 class MenuScene extends BaseScene {
   constructor(config) {
     super('MenuScene', config);
-    this.menu = [
-      { scene: 'PlayScene', text: 'Play' },
-      { scene: 'ScoreScene', text: 'Score' },
-      { scene: null, text: 'Exit' },
-    ];
+    this.isPlaying = false;
     this.posPlay = [this.config.width / 2, this.config.height * (3 / 4)];
   }
 
@@ -16,12 +12,20 @@ class MenuScene extends BaseScene {
     super.create();
     this.playButton();
     this.leaderBoardButton();
+    this.addAudio();
+    this.playAudio();
+    this.displayTitle();
+    this.displayUsernameInput();
+  }
 
+  displayTitle() {
     this.add.text(this.config.width / 2, 120, 'It\'s Twixo', {
       ...this.fontOptions,
       fontSize: '32px',
     }).setOrigin(0.5);
+  }
 
+  displayUsernameInput() {
     this.nameInput = this.add.dom(this.config.width / 2, 350)
       .createFromHTML('<input type="text" id="name" name="nameField" name" value="" >')
       .setOrigin(0.5);
@@ -36,6 +40,17 @@ class MenuScene extends BaseScene {
     this.returnKey.on('down', () => {
       this.saveName();
     });
+  }
+
+  addAudio() {
+    this.bgm = this.sound.add('menuBGM', { loop: true });
+  }
+
+  playAudio() {
+    if (this.isPlaying === false) {
+      this.bgm.play();
+      this.isPlaying = true;
+    }
   }
 
   saveName() {

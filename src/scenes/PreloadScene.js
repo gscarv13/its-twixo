@@ -9,6 +9,7 @@ import playIMG from '../assets/GUI/play.png';
 import playPressedIMG from '../assets/GUI/play-pressed.png';
 import leaderBoardIMG from '../assets/GUI/leaderboard.png';
 import backIMG from '../assets/GUI/back.png';
+import menuBGM from '../assets/BGM/TonalDissonance.ogg';
 
 class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -16,6 +17,7 @@ class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.audio('menuBGM', [menuBGM]);
     this.load.image('bg', bgIMG);
     this.load.image('obstacle1', obstacle1IMG);
     this.load.image('obstacle2', obstacle2IMG);
