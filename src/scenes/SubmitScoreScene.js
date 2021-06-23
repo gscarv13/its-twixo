@@ -12,6 +12,7 @@ class MenuScene extends BaseScene {
     this.score = localStorage.getItem('bestScore');
     this.displayScore();
     this.btnConfirm();
+    this.btnCancel();
   }
 
   displayScore() {
@@ -22,10 +23,9 @@ class MenuScene extends BaseScene {
   }
 
   btnConfirm() {
-    const btn = this.add.text(this.screenCenter[0] - 50, this.screenCenter[1] + 50, 'Yes', {
-      ...this.fontOptions,
-      fontSize: '25px',
-    }).setOrigin(0.5);
+    const btn = this.add.image(this.screenCenter[0] - 50, this.screenCenter[1] + 80, 'ok')
+      .setOrigin(0.5)
+      .setScale(3);
 
     btn.setInteractive();
 
@@ -36,6 +36,18 @@ class MenuScene extends BaseScene {
       };
 
       API.setScore.bind(this)(this.endpoint, this.scoreOptions, userData, this.checkResolve);
+    });
+  }
+
+  btnCancel() {
+    const btn = this.add.image(this.screenCenter[0] + 50, this.screenCenter[1] + 80, 'cancel')
+      .setOrigin(0.5)
+      .setScale(3);
+
+    btn.setInteractive();
+
+    btn.on('pointerup', () => {
+      this.scene.start('PlayScene');
     });
   }
 

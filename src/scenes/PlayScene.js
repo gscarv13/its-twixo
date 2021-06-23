@@ -104,10 +104,10 @@ class PlayScene extends BaseScene {
   createPause() {
     this.isPaused = false;
 
-    const btnPause = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
+    const btnPause = this.add.image(this.config.width - 20, this.config.height - 10, 'pause')
       .setOrigin(1, 1)
       .setInteractive()
-      .setScale(2);
+      .setScale(3);
 
     btnPause.on('pointerdown', () => {
       this.isPaused = true;

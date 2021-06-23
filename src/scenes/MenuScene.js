@@ -15,31 +15,35 @@ class MenuScene extends BaseScene {
     this.addAudio();
     this.playAudio();
     this.displayTitle();
+    this.confirmButton();
     this.displayUsernameInput();
   }
 
+  confirmButton() {
+    const btn = this.add.image(this.screenCenter[0] + 110, this.screenCenter[1] + 50, 'ok')
+      .setOrigin(0.5)
+      .setScale(2);
+
+    btn.setInteractive();
+
+    btn.on('pointerdown', () => {
+      this.saveName();
+    });
+  }
+
   displayTitle() {
-    this.add.text(this.config.width / 2, 120, 'It\'s Twixo', {
-      ...this.fontOptions,
-      fontSize: '32px',
-    }).setOrigin(0.5);
+    this.add.dom(this.config.width / 2, 120).createFromHTML("<h1>It's Twixo</h1>").setOrigin(0.5);
   }
 
   displayUsernameInput() {
-    this.nameInput = this.add.dom(this.config.width / 2, 350)
+    this.nameInput = this.add.dom(this.config.width / 2 - 20, 350)
       .createFromHTML('<input type="text" id="name" name="nameField" name" value="" >')
       .setOrigin(0.5);
 
-    this.message = this.add.text(this.config.width / 2, 310, 'Enter your nick, and hit ENTER', {
+    this.message = this.add.text(this.config.width / 2, 310, 'Enter your nick:', {
       ...this.fontOptions,
       fontSize: '15px',
     }).setOrigin(0.5);
-
-    this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-
-    this.returnKey.on('down', () => {
-      this.saveName();
-    });
   }
 
   addAudio() {
@@ -67,14 +71,14 @@ class MenuScene extends BaseScene {
   createButton(xpos, ypos, keyIMG) {
     return this.add.image(xpos, ypos, keyIMG)
       .setOrigin(0.5, 0.5)
-      .setScale(2);
+      .setScale(2.5);
   }
 
   leaderBoardButton() {
-    const btnLeaderboard = this.add.image(this.config.width - 30, this.config.height - 10, 'leaderboard')
+    const btnLeaderboard = this.add.image(this.config.width - 20, this.config.height - 10, 'leaderboard')
       .setOrigin(1, 1)
       .setInteractive()
-      .setScale(1);
+      .setScale(3);
 
     btnLeaderboard.on('pointerdown', () => {
       this.scene.start('ScoreScene');

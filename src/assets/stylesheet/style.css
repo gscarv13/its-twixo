@@ -16,3 +16,29 @@ input {
   border: black solid 3px;
   border-radius: 5px;
 }
+
+h1 {
+  padding: 20px 20px;
+  width: 100%;
+  -webkit-text-stroke: 1.5px white;
+  font-size: 32px;
+  text-shadow:
+    -1px 1px 0 #000,
+    -2px 2px 0 #000,
+    -3px 3px 0 #fff,
+    -3px 3px 0 #fff,
+    -4px 4px 0 #fff,
+    -5px 5px 0 #fff,
+    -6px 6px 0 #f9f107,
+    -7px 7px 0 #f9f107,
+    -8px 8px 0 #f9f107,
+    -9px 9px 0 #f9f107,
+    -10px 10px 0 #e57b19,
+    -11px 11px 0 #e57b19,
+    -12px 12px 0 #e57b19,
+    -13px 13px 0 #e57b19,
+    -14px 14px 0 #c72134,
+    -15px 15px 0 #c72134,
+    -16px 16px 0 #c72134,
+    -18px 18px 0 #c72134;
+}

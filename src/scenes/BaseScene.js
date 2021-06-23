@@ -19,9 +19,9 @@ class BaseScene extends Phaser.Scene {
     this.createBG();
 
     if (this.config.canGoBack) {
-      const btnBack = this.add.image(this.config.width - 10, this.config.height - 10, 'back')
+      const btnBack = this.add.image(this.config.width - 20, this.config.height - 10, 'back')
         .setOrigin(1)
-        .setScale(2)
+        .setScale(3)
         .setInteractive();
 
       btnBack.on('pointerdown', () => {
