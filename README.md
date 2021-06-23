@@ -2,7 +2,7 @@
 
 > This is a platform game built with JavaScript, Webpack, Phaser Framework and Jest testing
 
-![](demo/demo.gif)
+![](demo/demo2.gif)
 
 ## Built With
 
