@@ -164,7 +164,11 @@ class PlayScene extends BaseScene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-        this.scene.start('SubmitScoreScene');
+        if (localStorage.getItem('username') === null) {
+          this.scene.restart();
+        } else {
+          this.scene.start('SubmitScoreScene');
+        }
       },
       loop: false,
     });
