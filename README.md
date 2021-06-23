@@ -2,7 +2,7 @@
 
 > This is a platform game built with JavaScript, Webpack, Phaser Framework and Jest testing
 
-![](demo/demo1.gif)
+![](demo/demo.gif)
 
 ## Built With
 
@@ -15,6 +15,18 @@
 - Yarn
 - Phaser 3
 - Jest
+
+## General instructions
+
+When you open the game... 
+
+- Enter a nickname, if you want to save your score.
+- Click on Play
+- Use `LEFT CLICK` to jump;
+- If you hit an obstacle or fall, you lose
+- You'll be prompted to save your score, but only if you have entered a nickname.
+
+You can read all the Game design details [here](./demo/GDD.md)
 
 ## Live version
 
@@ -32,12 +44,21 @@ To run this project locally, make sure you have the following installed:
 - Clone this repository using the link above (click on the 'code' button)
 - Open a terminal and `cd` to the cloned repository
 - Run `yarn` to set up all dependencies
-- Run `yarn build` to bundle all scripts
+- Run `yarn serve` to start the server
 
 ### Usage
 
-- `cd` into `dist/`
-- Open the `index.html` file with your browser
+- Open your preffered browser
+- Visit `http://localhost:8080/`
+
+## Acknowledgements
+
+All the amazing artwork used on this project were created by the following artists:
+
+- Character and background design by [GrafxKid](https://grafxkid.itch.io/)
+- Background Music by [ArcOfDream](https://arcofdream.itch.io/monolith-ost)
+- UI elements by [Kenney](https://opengameart.org/content/game-icons)
+- UI elements by [Mikiz](https://mikiz.itch.io/buttons-pack-46-buttons)
 
 ## Authors
 
