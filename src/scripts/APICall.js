@@ -1,6 +1,6 @@
 import 'regenerator-runtime';
 
-async function getScore(url, opt, callback) {
+const getScore = async (url, opt, callback) => {
   opt.method = 'GET';
   delete opt.body;
 
@@ -11,9 +11,9 @@ async function getScore(url, opt, callback) {
   } catch (e) {
     throw new Error(e);
   }
-}
+};
 
-async function setScore(url, opt, userData, callback) {
+const setScore = async (url, opt, userData, callback) => {
   opt.method = 'POST';
   opt.body = JSON.stringify(userData);
 
@@ -24,6 +24,6 @@ async function setScore(url, opt, userData, callback) {
   } catch (e) {
     throw new Error(e);
   }
-}
+};
 
 export { getScore, setScore };
