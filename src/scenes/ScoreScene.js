@@ -16,10 +16,10 @@ class ScoreScene extends BaseScene {
       { ...this.fontOptions, fontSize: '22px' },
     ).setOrigin(0.5);
 
-    API.getScore.bind(this)(this.endpoint, this.scoreOptions, this.returnFirst);
+    API.getScore(this.endpoint, this.scoreOptions, this.topThreePlayers.bind(this));
   }
 
-  returnFirst(input) {
+  topThreePlayers(input) {
     let bestScore = input.result;
     bestScore = bestScore.sort((a, b) => b.score - a.score);
     const topScores = bestScore.slice(0, 4);

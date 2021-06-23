@@ -35,7 +35,7 @@ class MenuScene extends BaseScene {
         score: JSON.parse(localStorage.getItem('bestScore')),
       };
 
-      API.setScore.bind(this)(this.endpoint, this.scoreOptions, userData, this.checkResolve);
+      API.setScore(this.endpoint, this.scoreOptions, userData, this.checkResolve.bind(this));
     });
   }
 

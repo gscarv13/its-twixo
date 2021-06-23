@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 
 class MenuScene extends BaseScene {

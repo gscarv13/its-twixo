@@ -7,7 +7,7 @@ const getScore = async (url, opt, callback) => {
   try {
     const res = await fetch(url, opt);
     const data = await res.json();
-    return (callback.bind(this))(data);
+    return callback(data);
   } catch (e) {
     throw new Error(e);
   }
@@ -20,7 +20,7 @@ const setScore = async (url, opt, userData, callback) => {
   try {
     const res = await fetch(url, opt);
     const data = await res.json();
-    return (callback.bind(this))(data);
+    return callback(data);
   } catch (e) {
     throw new Error(e);
   }
