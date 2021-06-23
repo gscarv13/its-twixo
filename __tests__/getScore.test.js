@@ -49,4 +49,10 @@ describe('getScore call', () => {
     const array = value.result;
     expect(array instanceof Array).toBe(true);
   });
+
+  test('Should fail with wrong method', async () => {
+    getOptions.method = 'POST';
+    const value = await getScore(url, getOptions, getCallback);
+    expect(value.message).toBe(undefined);
+  });
 });

@@ -23,7 +23,7 @@ describe('setScore call', () => {
     expect(value.success.result).toBe('Leaderboard score created correctly.');
   });
 
-  test('Should return success message', async () => {
+  test('Should fail message', async () => {
     const invalidUserData = { user: 42, score: 'highest' };
     const fail = { message: 'You need to provide a valid score for the leaderboard.' };
 
