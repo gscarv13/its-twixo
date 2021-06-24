@@ -1,0 +1,61 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@webpack-cli/generators": "^2.2.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "10.x",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^5.2.6",
+    "eslint": "7.x",
+    "eslint-config-airbnb-base": "14.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jest-dom": "^3.9.0",
+    "file-loader": "^6.2.0",
+    "jest": "^27.0.4",
+    "node-fetch": "^2.6.1",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^2.0.0",
+    "stylelint": "13.x",
+    "stylelint-config-standard": "21.x",
+    "stylelint-csstree-validator": "1.x",
+    "stylelint-scss": "3.x",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "jest-fetch-mock": "^3.0.3",
+    "phaser": "^3.55.2",
+    "regenerator-runtime": "^0.13.7",
+    "terser-webpack-plugin": "^5.1.3",
+    "webfontloader": "^1.6.28",
+    "webpack": "^5.39.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "description": "My webpack project",
+  "scripts": {
+    "build": "webpack --mode=production --config ./webpack/prod.js",
+    "build:dev": "webpack --mode=development --config ./webpack/base.js",
+    "watch": "webpack --watch -c ./webpack/base.js",
+    "serve": "webpack serve -c ./webpack/base.js",
+    "eslint": "eslint .",
+    "stylelint": "stylelint '**/*.{css,scss}'",
+    "test": "jest"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  }
+}
